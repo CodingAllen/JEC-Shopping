@@ -104,4 +104,14 @@ class CartDAO
 
         return $result['total_items'] ? $result['total_items'] : 0;
     }
+    public function delete_by_memberid(int $memberid)
+    {
+        $dbh = DAO::get_db_connect();
+        $sql = "DELETE FROM Cart WHERE memberid = :memberid";
+
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue('memberid', $memberid, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }

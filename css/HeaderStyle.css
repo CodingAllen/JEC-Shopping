@@ -1,0 +1,9 @@
+#logo{
+    float: left;
+}
+#link{
+    float: right;
+}
+#clear{
+    clear: both;
+}

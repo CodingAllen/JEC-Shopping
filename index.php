@@ -25,12 +25,13 @@ if (isset($_GET['groupcode'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JecShopping</title>
+    <link href="css/IndexStyle.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include "header.php"; ?>
 
-    <table>
+    <table id="goodsgroup">
         <?php foreach ($goodsgroup_list as $goodsgroup) : ?>
             <tr>
                 <td>
@@ -42,34 +43,37 @@ if (isset($_GET['groupcode'])) {
         <?php endforeach; ?>
 
     </table>
-    <?php foreach ($goods_list as $goods) : ?>
-        <table align="left">
-            <tr>
-                <td>
-                    <a href="goods.php?goodscode=<?= $goods->goodscode ?>">
-                        <img src="images/goods/<?= $goods->goodsimage ?>"></a>
+    <div id="goodslist">
+        <?php foreach ($goods_list as $goods) : ?>
+            <table align="left">
+                <tr>
+                    <td>
+                        <a href="goods.php?goodscode=<?= $goods->goodscode ?>">
+                            <img src="images/goods/<?= $goods->goodsimage ?>"></a>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="goods.php?goodscode=<?= $goods->goodscode ?>">
-                        <?= $goods->goodsname ?></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="goods.php?goodscode=<?= $goods->goodscode ?>">
+                            <?= $goods->goodsname ?></a>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    \<?= number_format($goods->price) ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <?= $goods->recommend ? "おすすめ" : " " ?>
-                </td>
-            </tr>
-        </table>
-    <?php endforeach ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        \<?= number_format($goods->price) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?= $goods->recommend ? "おすすめ" : " " ?>
+                    </td>
+                </tr>
+            </table>
+        <?php endforeach ?>
+    </div>
+
 </body>
 
 </html>

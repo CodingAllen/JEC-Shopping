@@ -10,12 +10,13 @@ if (!empty($_SESSION['member'])) {
 }
 ?>
 <header>
-    <div>
+    <link href="css/HeaderStyle.css" rel="stylesheet">
+    <div id="logo">
         <a href="index.php">
             <img src="images/JecShoppingLogo.jpg" alt="JecShopping ロゴ">
         </a>
     </div>
-    <div>
+    <div id="link">
         <?php if (isset($member)) : ?>
             <?= $member->membername ?>さん
             <a href="cart.php">カート
@@ -27,5 +28,8 @@ if (!empty($_SESSION['member'])) {
             <a href="login.php">ログイン</a>
         <?php endif; ?>
     </div>
-    <hr>
+    <div id="clear">
+        <hr>
+    </div>
+
 </header>
