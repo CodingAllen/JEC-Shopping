@@ -9,12 +9,16 @@ $goodsGroupDAO = new GoodsGroupDAO();
 $goodsgroup_list = $goodsGroupDAO->get_goodsgroup();
 $goodsDAO = new GoodsDAO();
 
-if (isset($_GET['groupcode'])) {
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $goods_list = $goodsDAO->get_goods_by_keyword($search);
+} elseif (isset($_GET['groupcode'])) {
     $groupcode = $_GET['groupcode'];
     $goods_list = $goodsDAO->get_goods_by_groupcode($groupcode);
 } else {
     $goods_list = $goodsDAO->get_recommend_goods();
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -43,6 +47,11 @@ if (isset($_GET['groupcode'])) {
         <?php endforeach; ?>
 
     </table>
+    <?php if (isset($_GET['search'])) : ?>
+        <div id="search-result">
+            <h2>检索结果: <?= htmlspecialchars($_GET['search']) ?></h2>
+        </div>
+    <?php endif; ?>
     <div id="goodslist">
         <?php foreach ($goods_list as $goods) : ?>
             <table align="left">

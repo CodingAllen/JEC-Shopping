@@ -52,4 +52,25 @@ class GoodsDAO
         $goods = $stmt->fetchObject('Goods');
         return $goods;
     }
+    public function get_goods_by_keyword(string $keyword)
+    {
+        $dbh = DAO::get_db_connect();
+
+
+        $sql = "SELECT * FROM goods WHERE goodsname LIKE :keyword ORDER BY recommend DESC";
+
+        $stmt = $dbh->prepare($sql);
+
+
+        $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        $data = [];
+        while ($row = $stmt->fetchObject('Goods')) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
 }
