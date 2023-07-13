@@ -137,7 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     郵便番号＊
                 </td>
                 <td>
-                    <input type="text" name="zipcode" pattern="\d{3}-\d{4}" required>
+                    <input type="text" id="zipcode" name="zipcode" pattern="\d{3}-\d{4}" required>
+                    <button type="button" id="fillAddress">住所検索</button>
                     <?php if (isset($errs['zipcode'])) : ?>
                         <p style="color: red; display:inline;"><?php echo $errs['zipcode']; ?></p>
                     <?php endif; ?>
@@ -147,12 +148,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
                 <td>住所＊</td>
                 <td>
-                    <input type="text" name="address" required>
+                    <input type="text" id="address" name="address" required>
                     <?php if (isset($errs['address'])) : ?>
                         <p style="color: red; display:inline;"><?php echo $errs['address']; ?></p>
                     <?php endif; ?>
                 </td>
             </tr>
+
             <!-- Phone Number -->
             <tr>
                 <td>電話番号</td>
@@ -168,6 +170,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
         <input type="submit" value="登録する">
     </form>
+    <script>
+        document.getElementById('fillAddress').addEventListener('click', function() {
+            var zipcode = document.getElementById('zipcode').value;
+            if (zipcode) {
+                fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + zipcode)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.results) {
+                            var result = data.results[0];
+                            var address = result.address1 + result.address2 + result.address3;
+                            document.getElementById('address').value = address;
+                        } else {
+                            alert('該当する郵便番号が見つかりませんでした。');
+                        }
+                    });
+            } else {
+                alert('郵便番号を入力してください。');
+            }
+        });
+    </script>
+
+
 
 </body>
 

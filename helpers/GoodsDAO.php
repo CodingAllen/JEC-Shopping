@@ -57,12 +57,13 @@ class GoodsDAO
         $dbh = DAO::get_db_connect();
 
 
-        $sql = "SELECT * FROM goods WHERE goodsname LIKE :keyword ORDER BY recommend DESC";
+        $sql = "SELECT * FROM goods WHERE goodsname LIKE :keyword1 OR detail Like :keyword2 ORDER BY recommend DESC";
 
         $stmt = $dbh->prepare($sql);
 
 
-        $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':keyword1', '%' . $keyword . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':keyword2', '%' . $keyword . '%', PDO::PARAM_STR);
 
         $stmt->execute();
 
